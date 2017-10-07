@@ -19,14 +19,30 @@ export default class DatasetDetail extends React.Component {
     // get dataset
     let dataset = datasetService.get(this.props.match.params.id);
     dataset.then((dataset) => {
+      dataset.result.resources.forEach( (res, index) => {
+          if (res.format==="GeoJSON") datasetService.getGEOJson(res.url).then( data => {
+              dataset.result.resources[index].geoData=data.features
+              //console.log(dataset.result)
+          });
+      })
       this.setState({
         dataset: dataset.result
       });
     });
     
     //bind functions
+    this.debugging=this.debugging.bind(this)
   }
+    
 
+  debugging(message){
+    console.log("SOno un debuggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
+    console.log(message);
+    setTimeout(() => {
+      console.log(message)
+    }, 5000)
+  }
+  
 
   render() {
     return (
@@ -73,6 +89,7 @@ export default class DatasetDetail extends React.Component {
                          <div className=" u-margin-bottom-l u-borderRadius-m u-padding-all-xxs u-lineHeight-xxl">
                            <a href={res.download_url} className="u-text-s u-textWeight-600 u-textClean u-color-50">{res.name} </a><br /> {res.description} 
                            <p><strong>Licenza: </strong> {res.license} </p>
+                           <div> {res}  </div>
                         </div>
                        </div>
                      </div>

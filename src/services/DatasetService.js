@@ -97,7 +97,7 @@ export default class DatasetService {
     }
 
     async get(id) {
-        const response = await fetch( serviceurl.apiCKAN + "/package_show?id=" + id );
+        const response = await fetch( serviceurl.apiCKAN + "/package_show?id=" + id )
         return response.json();
     }
 
