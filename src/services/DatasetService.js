@@ -114,7 +114,17 @@ export default class DatasetService {
     }
 
     async getLast() {
-        const response = await fetch( serviceurl.apiCKAN + "/package_search?rows=3", {
+        const response = await fetch( serviceurl.apiCKAN + "/package_search?rows=3&q=res_format:GeoJSON", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.json();
+    }
+
+    async getGEOJson(url){
+        const response = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
