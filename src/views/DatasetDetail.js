@@ -20,20 +20,25 @@ export default class DatasetDetail extends React.Component {
     let dataset = datasetService.get(this.props.match.params.id);
     dataset.then((dataset) => {
       dataset.result.resources.forEach( (res, index) => {
-          if (res.format==="GeoJSON") datasetService.getGEOJson(res.url).then( data => {
+          if (res.format==="GeoJSON") 
+            datasetService.getGEOJson(res.url).then( data => {
               dataset.result.resources[index].geoData=data.features
               //console.log(dataset.result)
+              this.setState({
+                dataset: dataset.result
+              });
           });
       })
-      this.setState({
-        dataset: dataset.result
-      });
     });
     
     //bind functions
     this.debugging=this.debugging.bind(this)
+    //this.setState=this.setState.bind(this)
   }
     
+  /*setState(state){
+    this.state=state
+  }*/
 
   debugging(message){
     console.log("SOno un debuggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
@@ -79,7 +84,7 @@ export default class DatasetDetail extends React.Component {
                   {this.state.dataset.resources && this.state.dataset.resources.map((res, index) => {
                     
                      return(                 
-                        <div className="Grid Grid--fit Grid--withGutter ">
+                        <div key={index} className="Grid Grid--fit Grid--withGutter ">
                        <div className="Grid-cell u-md-size2of12 u-lg-size2of12 ">
                          <div className="u-background-5 u-sizeFull u-color-black u-margin-bottom-l u-borderRadius-m u-padding-all-xxs u-textWeight-500 ">
                            {res.format}
@@ -89,7 +94,7 @@ export default class DatasetDetail extends React.Component {
                          <div className=" u-margin-bottom-l u-borderRadius-m u-padding-all-xxs u-lineHeight-xxl">
                            <a href={res.download_url} className="u-text-s u-textWeight-600 u-textClean u-color-50">{res.name} </a><br /> {res.description} 
                            <p><strong>Licenza: </strong> {res.license} </p>
-                           <div> {res}  </div>
+                           <div> {res.geoData ? <h1>Sono una mappa</h1> : null }  </div>
                         </div>
                        </div>
                      </div>
@@ -110,11 +115,11 @@ export default class DatasetDetail extends React.Component {
                   {this.state.dataset.tags && this.state.dataset.tags.map((tag, index) => {  
                     if(this.state.dataset.num_tags == index+1){                 
                       return(                         
-                        <a  href="#"><span key={index}></span>{tag.display_name} </a>                         
+                        <a key={index} href="#"><span key={index}></span>{tag.display_name} </a>                         
                        ); 
                     } else {
                       return(                         
-                        <a  href="#"><span key={index}></span>{tag.display_name}, </a>                         
+                        <a key={index} href="#"><span key={index}></span>{tag.display_name}, </a>                         
                        ); 
                     }                       
                       })                   
