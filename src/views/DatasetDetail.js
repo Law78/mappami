@@ -47,6 +47,7 @@ export default class DatasetDetail extends React.Component {
   
 
   render() {
+    
     return (
       <div className="u-layout-wide u-layoutCenter">
        <div className="u-background-50 u-layout-r-withGutter u-padding-top-xxl">
@@ -91,7 +92,8 @@ export default class DatasetDetail extends React.Component {
                          <div className=" u-margin-bottom-l u-borderRadius-m u-padding-all-xxs u-lineHeight-xxl">
                            <a href={res.download_url} className="u-text-s u-textWeight-600 u-textClean u-color-50">{res.name} </a><br /> {res.description} 
                            <p><strong>Licenza: </strong> {res.license} </p>
-                           <div> {res.geoData ? <GeoMap></GeoMap> : null }  </div>
+                           {this.debugging(res)}
+                           <div> {res.geoData ? <GeoMap geoData={res.geoData}></GeoMap> : null }  </div>
                         </div>
                        </div>
                      </div>
