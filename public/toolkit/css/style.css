@@ -242,6 +242,13 @@ a:hover Icon-* {
     position: relative;
 }
 
+/* GeoMap */
+
+div.leaflet-container{
+    width:300px;
+    height:300px;
+}
+
   
 /* HEADER */
   

@@ -1,5 +1,6 @@
 import React from 'react';
 import {FormattedDate} from 'react-intl';
+import GeoMap from '../components/Mappami/GeoMap.js'
 
 import DatasetSearchCard from '../components/Dataset/DatasetSearchCard.js'
 
@@ -41,11 +42,7 @@ export default class DatasetDetail extends React.Component {
   }*/
 
   debugging(message){
-    console.log("SOno un debuggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
     console.log(message);
-    setTimeout(() => {
-      console.log(message)
-    }, 5000)
   }
   
 
@@ -94,7 +91,7 @@ export default class DatasetDetail extends React.Component {
                          <div className=" u-margin-bottom-l u-borderRadius-m u-padding-all-xxs u-lineHeight-xxl">
                            <a href={res.download_url} className="u-text-s u-textWeight-600 u-textClean u-color-50">{res.name} </a><br /> {res.description} 
                            <p><strong>Licenza: </strong> {res.license} </p>
-                           <div> {res.geoData ? <h1>Sono una mappa</h1> : null }  </div>
+                           <div> {res.geoData ? <GeoMap></GeoMap> : null }  </div>
                         </div>
                        </div>
                      </div>
